@@ -4,6 +4,7 @@ Jogo de perguntas e respostas no estilo dos grandes programas de auditório da T
 
 ## Como abrir
 
+- **Online:** https://filipeidea.github.io/rumo-ao-milhao/ (publicado automaticamente a cada push na `main`).
 - **Jeito mais simples:** abra `dist/rumo-ao-milhao.html` em qualquer navegador (Chrome, Edge, Firefox). É um arquivo único, funciona até sem internet (só a fonte do título precisa de internet; sem ela, o jogo usa uma fonte do sistema).
 - **Versão de desenvolvimento:** abra `src/index.html` direto, ou rode `npm start` e acesse http://localhost:8080. Não precisa instalar dependências.
 - Na TV: aperte **F** para tela cheia.
@@ -84,7 +85,8 @@ rumo-ao-milhao/
 ├── testes/
 │   ├── teste-logica.js         regras, pontuação, ajudas, sorteio (Node)
 │   └── teste-navegador.py      partidas completas num Chromium (Playwright)
-├── .github/workflows/testes.yml  roda os testes a cada push
+├── .github/workflows/testes.yml    roda os testes a cada push
+├── .github/workflows/publicar.yml  publica o jogo no GitHub Pages
 └── package.json                atalhos: start, build, test, test:e2e
 ```
 
