@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rumo ao Milhão</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Saira:wdth,wght@75..125,400..900&display=swap">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/palco.css">
+<link rel="stylesheet" href="css/telas.css">
+<link rel="stylesheet" href="css/jogo.css">
+<link rel="stylesheet" href="css/sobreposicoes.css">
+<link rel="stylesheet" href="css/responsivo.css">
+</head>
+<body>
+<div id="app" class="app" data-tela="menu" data-tensao="0">
+
+  <!-- ===== Palco (fundo animado, comum a todas as telas) ===== -->
+  <div class="palco" aria-hidden="true">
+    <div class="palco-raios"></div>
+    <div class="feixes"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="aneis"><i></i><i></i><i></i><i></i></div>
+    <div class="piso"></div>
+    <canvas id="fx-fundo"></canvas>
+    <div class="vinheta"></div>
+  </div>
+
+  <!-- ===== MENU ===== -->
+  <section id="tela-menu" class="tela ativa" aria-label="Menu principal">
+    <div class="menu-grid">
+      <div class="menu-centro">
+        <h1 class="logo" aria-label="Rumo ao Milhão">
+          <span class="logo-disco" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="logo-rumo">RUMO AO</span>
+          <span class="logo-milhao" data-texto="MILHÃO">MILHÃO</span>
+          <span class="logo-faixa">O grande jogo de perguntas da TV</span>
+        </h1>
+        <button id="btn-comecar" class="btn btn-ouro btn-xl" type="button">COMEÇAR</button>
+        <div class="menu-opcoes">
+          <button id="btn-menu-grupo" class="btn btn-vidro" type="button">MODO GRUPO</button>
+          <button id="btn-menu-config" class="btn btn-vidro" type="button">CONFIGURAÇÕES</button>
+          <button id="btn-menu-ajuda" class="btn btn-vidro" type="button">COMO JOGAR</button>
+        </div>
+        <p class="menu-dica">Você começa na <b>pergunta 1</b>, valendo <b id="menu-valor1">R$ 1.000</b><span class="sep">·</span><span id="menu-modo">Modo individual</span></p>
+      </div>
+      <aside class="lateral lateral-menu" aria-label="Tabela de prêmios">
+        <div class="escada-titulo">PRÊMIOS</div>
+        <ol class="escada" id="escada-menu"></ol>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ===== MODO GRUPO ===== -->
+  <section id="tela-grupo" class="tela" aria-label="Modo grupo">
+    <div class="cartao cartao-largo">
+      <h2 class="cartao-titulo">MODO GRUPO</h2>
+      <p class="cartao-sub">Cada participante joga a própria escada. A vez passa para o próximo a cada pergunta. Quem errar ou parar sai com o que ganhou; vence quem levar o maior prêmio.</p>
+      <form id="form-grupo" class="form-grupo" autocomplete="off">
+        <ol id="lista-jogadores" class="lista-jogadores"></ol>
+        <div class="linha-botoes">
+          <button id="btn-add-jogador" class="btn btn-vidro" type="button">+ ADICIONAR PARTICIPANTE</button>
+        </div>
+        <p id="grupo-erro" class="erro" role="alert" hidden></p>
+        <div class="linha-botoes linha-final">
+          <button class="btn btn-vidro" type="button" data-voltar>VOLTAR</button>
+          <button id="btn-grupo-comecar" class="btn btn-ouro" type="submit">COMEÇAR EM GRUPO</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== CONFIGURAÇÕES ===== -->
+  <section id="tela-config" class="tela" aria-label="Configurações">
+    <div class="cartao cartao-largo">
+      <h2 class="cartao-titulo">CONFIGURAÇÕES</h2>
+      <div class="config-grid">
+        <div class="config-col">
+          <div class="campo">
+            <label for="cfg-volume">Volume <output id="cfg-volume-val">80%</output></label>
+            <input id="cfg-volume" type="range" min="0" max="100" step="5" value="80">
+          </div>
+          <div class="campo campo-linha">
+            <span id="lbl-efeitos">Efeitos sonoros</span>
+            <button id="cfg-efeitos" class="chave" role="switch" aria-checked="true" aria-labelledby="lbl-efeitos" type="button"><span></span></button>
+          </div>
+          <div class="campo campo-linha">
+            <span id="lbl-musica">Música</span>
+            <button id="cfg-musica" class="chave" role="switch" aria-checked="true" aria-labelledby="lbl-musica" type="button"><span></span></button>
+          </div>
+          <div class="campo campo-linha">
+            <span>Tela cheia</span>
+            <button id="cfg-tela" class="btn btn-vidro btn-sm" type="button">ATIVAR</button>
+          </div>
+          <div class="campo">
+            <span class="campo-rotulo">Quantidade de perguntas</span>
+            <div id="cfg-qtd" class="segmentos" role="radiogroup" aria-label="Quantidade de perguntas"></div>
+          </div>
+          <div class="campo">
+            <span class="campo-rotulo">Dificuldade</span>
+            <div id="cfg-dif" class="segmentos" role="radiogroup" aria-label="Dificuldade"></div>
+          </div>
+          <div class="campo">
+            <span class="campo-rotulo">Modo de jogo</span>
+            <div id="cfg-modo" class="segmentos" role="radiogroup" aria-label="Modo de jogo"></div>
+          </div>
+          <div class="campo campo-linha">
+            <span>Banco de perguntas<small id="cfg-banco-info"></small></span>
+            <button id="cfg-reset" class="btn btn-vidro btn-sm" type="button">REINICIAR</button>
+          </div>
+        </div>
+        <div class="config-col">
+          <h3 class="subtitulo">Atalhos do apresentador</h3>
+          <dl class="atalhos">
+            <dt><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd></dt><dd>Selecionar alternativa</dd>
+            <dt><kbd>Enter</kbd></dt><dd>Confirmar / continuar</dd>
+            <dt><kbd>Esc</kbd></dt><dd>Voltar</dd>
+            <dt><kbd>5</kbd></dt><dd>Usar 50/50</dd>
+            <dt><kbd>A</kbd></dt><dd>Ajuda da plateia</dd>
+            <dt><kbd>6</kbd></dt><dd>Pular pergunta</dd>
+            <dt><kbd>S</kbd></dt><dd>Parar e levar o prêmio</dd>
+            <dt><kbd>P</kbd></dt><dd>Pausar</dd>
+            <dt><kbd>R</kbd></dt><dd>Reiniciar partida</dd>
+            <dt><kbd>F</kbd></dt><dd>Tela cheia</dd>
+            <dt><kbd>M</kbd></dt><dd>Ligar/desligar som</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="linha-botoes linha-final">
+        <button class="btn btn-ouro" type="button" data-voltar>PRONTO</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COMO JOGAR ===== -->
+  <section id="tela-ajuda" class="tela" aria-label="Como jogar">
+    <div class="cartao cartao-largo">
+      <h2 class="cartao-titulo">COMO JOGAR</h2>
+      <div class="regras">
+        <div class="regra"><b>Suba a escada</b><p>Cada resposta certa leva você ao próximo prêmio. As perguntas começam fáceis e ficam mais difíceis.</p></div>
+        <div class="regra"><b>Responda ou pare</b><p>Antes de responder, você pode parar e levar o que já acumulou. Errar vale metade do acumulado. Na pergunta do milhão, quem erra sai sem nada.</p></div>
+        <div class="regra"><b>Três ajudas</b><p>50/50 tira duas erradas. A plateia vota. Pular troca a pergunta. Cada uma pode ser usada uma vez por jogador.</p></div>
+        <div class="regra"><b>Na TV</b><p>Ligue o computador na TV e aperte F para tela cheia. O apresentador comanda tudo pelo teclado, ou por mouse.</p></div>
+      </div>
+      <p class="nota-ficticio">Os valores são fictícios. Nenhum prêmio real é pago.</p>
+      <div class="linha-botoes linha-final">
+        <button class="btn btn-vidro" type="button" id="btn-ajuda-atalhos">VER ATALHOS</button>
+        <button class="btn btn-ouro" type="button" data-voltar>ENTENDI</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== JOGO ===== -->
+  <section id="tela-jogo" class="tela" aria-label="Partida">
+    <div class="jogo-grid">
+      <div class="jogo-principal">
+        <header class="hud">
+          <div class="hud-marca" aria-hidden="true">RUMO AO <b>MILHÃO</b></div>
+          <div class="hud-vez" id="hud-vez" hidden></div>
+          <div class="hud-valores">
+            <div class="hv hv-errar"><span>ERRAR</span><b id="v-errar">R$ 0</b></div>
+            <div class="hv hv-parar"><span>PARAR</span><b id="v-parar">R$ 0</b></div>
+            <div class="hv hv-acertar"><span>ACERTAR</span><b id="v-acertar">R$ 1.000</b></div>
+          </div>
+        </header>
+
+        <div class="painel" id="painel">
+          <div class="painel-topo">
+            <span class="painel-num" id="painel-num">PERGUNTA 1</span>
+            <span class="painel-cat" id="painel-cat">Categoria</span>
+          </div>
+          <p class="painel-texto" id="painel-texto">Pergunta</p>
+          <div class="painel-explica" id="painel-explica" hidden></div>
+        </div>
+
+        <div class="alternativas" id="alternativas" role="group" aria-label="Alternativas">
+          <button class="alt" type="button" data-i="0"><span class="alt-letra">A</span><span class="alt-texto"></span><span class="alt-voto"></span></button>
+          <button class="alt" type="button" data-i="1"><span class="alt-letra">B</span><span class="alt-texto"></span><span class="alt-voto"></span></button>
+          <button class="alt" type="button" data-i="2"><span class="alt-letra">C</span><span class="alt-texto"></span><span class="alt-voto"></span></button>
+          <button class="alt" type="button" data-i="3"><span class="alt-letra">D</span><span class="alt-texto"></span><span class="alt-voto"></span></button>
+        </div>
+
+        <footer class="controles">
+          <div class="ajudas" role="group" aria-label="Ajudas">
+            <button class="ajuda" id="aj-cinquenta" type="button" title="50/50 (tecla 5)">
+              <span class="ajuda-icone"><svg viewBox="0 0 48 48" aria-hidden="true"><text x="24" y="30" text-anchor="middle" font-size="15" font-weight="800" fill="currentColor" font-family="Saira, Arial, sans-serif" textLength="38" lengthAdjust="spacingAndGlyphs">50:50</text></svg></span>
+              <span class="ajuda-nome">50/50</span><kbd>5</kbd>
+            </button>
+            <button class="ajuda" id="aj-plateia" type="button" title="Plateia (tecla A)">
+              <span class="ajuda-icone"><svg viewBox="0 0 48 48" aria-hidden="true" fill="currentColor"><circle cx="24" cy="15" r="6"/><path d="M13 36c0-7 5-11 11-11s11 4 11 11z"/><circle cx="11" cy="20" r="4.4"/><path d="M2 37c0-5.4 3.6-8.5 8.6-8.5 1.6 0 3 .3 4.2.9-1.7 2-2.6 4.7-2.8 7.6z"/><circle cx="37" cy="20" r="4.4"/><path d="M46 37c0-5.4-3.6-8.5-8.6-8.5-1.6 0-3 .3-4.2.9 1.7 2 2.6 4.7 2.8 7.6z"/></svg></span>
+              <span class="ajuda-nome">Plateia</span><kbd>A</kbd>
+            </button>
+            <button class="ajuda" id="aj-pular" type="button" title="Pular (tecla 6)">
+              <span class="ajuda-icone"><svg viewBox="0 0 48 48" aria-hidden="true" fill="currentColor"><path d="M8 12l16 12L8 36z"/><path d="M24 12l16 12-16 12z"/></svg></span>
+              <span class="ajuda-nome">Pular</span><kbd>6</kbd>
+            </button>
+          </div>
+          <div class="acoes">
+            <button id="btn-parar" class="btn btn-parar" type="button">PARAR</button>
+            <button id="btn-responder" class="btn btn-ouro btn-grande" type="button" disabled>RESPONDER</button>
+            <button id="btn-continuar" class="btn btn-ouro btn-grande" type="button" hidden>PRÓXIMA PERGUNTA</button>
+          </div>
+        </footer>
+      </div>
+
+      <aside class="lateral lateral-jogo" id="lateral-jogo" aria-label="Tabela de prêmios">
+        <ol class="escada" id="escada-jogo"></ol>
+        <div class="placar" id="placar" hidden></div>
+      </aside>
+    </div>
+
+    <nav class="mini-barra" aria-label="Controles">
+      <button class="icone-btn" id="btn-som" type="button" title="Som (M)" aria-label="Ligar ou desligar som">
+        <svg viewBox="0 0 24 24" class="ico-som" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path class="ondas" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path class="xis" d="M16 9l6 6M22 9l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <button class="icone-btn" id="btn-pausa" type="button" title="Pausar (P)" aria-label="Pausar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></svg></button>
+      <button class="icone-btn" id="btn-escada" type="button" title="Prêmios" aria-label="Ver tabela de prêmios"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v3H5zM5 10.5h14v3H5zM5 17h14v3H5z" fill="currentColor"/></svg></button>
+      <button class="icone-btn" id="btn-tela" type="button" title="Tela cheia (F)" aria-label="Tela cheia"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" fill="none" stroke="currentColor" stroke-width="2.2"/></svg></button>
+      <button class="icone-btn" id="btn-sair" type="button" title="Menu (Esc)" aria-label="Voltar ao menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
+    </nav>
+  </section>
+
+  <!-- ===== RESULTADO ===== -->
+  <section id="tela-resultado" class="tela" aria-label="Resultado">
+    <div class="resultado">
+      <h2 class="res-titulo">FIM DE JOGO</h2>
+      <p class="res-motivo" id="res-motivo"></p>
+      <div class="res-premio-rotulo">PRÊMIO CONQUISTADO</div>
+      <div class="res-premio" id="res-premio">R$ 0</div>
+      <div class="res-stats" id="res-stats"></div>
+      <div class="res-ranking" id="res-ranking" hidden></div>
+      <details class="res-lista" id="res-lista-wrap">
+        <summary>Ver perguntas da partida</summary>
+        <ol id="res-lista"></ol>
+      </details>
+      <div class="linha-botoes">
+        <button id="btn-res-menu" class="btn btn-vidro" type="button">VOLTAR AO MENU</button>
+        <button id="btn-res-novamente" class="btn btn-ouro btn-grande" type="button">JOGAR NOVAMENTE</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SOBREPOSIÇÕES ===== -->
+  <div class="ov ov-vez" id="ov-vez" hidden>
+    <div class="vez-conteudo">
+      <div class="vez-rotulo">É A VEZ DE</div>
+      <div class="vez-nome" id="vez-nome">FELIPE</div>
+      <div class="vez-info" id="vez-info">Pergunta 1 · valendo R$ 1.000</div>
+    </div>
+  </div>
+
+  <div class="ov ov-marco" id="ov-marco" hidden>
+    <div class="marco-conteudo">
+      <div class="marco-rotulo" id="marco-rotulo">AGORA VALENDO</div>
+      <div class="marco-valor" id="marco-valor">R$ 100.000</div>
+    </div>
+  </div>
+
+  <div class="ov ov-modal" id="ov-plateia" hidden role="dialog" aria-modal="true" aria-labelledby="plateia-titulo">
+    <div class="modal modal-plateia">
+      <h3 class="modal-titulo" id="plateia-titulo">A PLATEIA VOTOU</h3>
+      <div class="grafico" id="grafico-plateia"></div>
+      <div class="linha-botoes"><button class="btn btn-ouro" type="button" id="btn-plateia-ok">CONTINUAR</button></div>
+    </div>
+  </div>
+
+  <div class="ov ov-modal" id="ov-confirmar" hidden role="dialog" aria-modal="true" aria-labelledby="conf-titulo">
+    <div class="modal">
+      <h3 class="modal-titulo" id="conf-titulo">Tem certeza?</h3>
+      <p class="modal-texto" id="conf-texto"></p>
+      <div class="linha-botoes">
+        <button class="btn btn-vidro" type="button" id="conf-nao">CANCELAR</button>
+        <button class="btn btn-ouro" type="button" id="conf-sim">CONFIRMAR</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ov ov-modal" id="ov-pausa" hidden role="dialog" aria-modal="true" aria-label="Pausa">
+    <div class="pausa-conteudo">
+      <div class="pausa-titulo">INTERVALO</div>
+      <p>Aperte <kbd>P</kbd> ou toque para voltar ao jogo</p>
+      <button class="btn btn-ouro" type="button" id="btn-voltar-pausa">VOLTAR AO JOGO</button>
+    </div>
+  </div>
+
+  <div class="ov ov-vitoria" id="ov-vitoria" hidden>
+    <div class="vitoria-conteudo">
+      <div class="vitoria-rotulo" id="vitoria-nome">VOCÊ CONQUISTOU</div>
+      <div class="vitoria-valor">R$ 1.000.000</div>
+      <div class="vitoria-sub">O PRÊMIO MÁXIMO!</div>
+      <button class="btn btn-ouro btn-grande" type="button" id="btn-vitoria-ok">CONTINUAR</button>
+    </div>
+  </div>
+
+  <div class="carimbo" id="carimbo" aria-live="assertive"></div>
+  <canvas id="fx-frente" aria-hidden="true"></canvas>
+</div>
+
+<!-- Dados e lógica (sem tela) -->
+<script src="js/data/perguntas.js"></script>
+<script src="js/core/config.js"></script>
+<script src="js/core/configuracoes.js"></script>
+<script src="js/core/pontuacao.js"></script>
+<script src="js/core/banco.js"></script>
+<script src="js/core/ajudas.js"></script>
+<script src="js/core/jogo.js"></script>
+<!-- Áudio, animações e interface -->
+<script src="js/audio/audio.js"></script>
+<script src="js/ui/animacoes.js"></script>
+<script src="js/ui/componentes.js"></script>
+<script src="js/ui/telas.js"></script>
+<script src="js/ui/partida.js"></script>
+<script src="js/ui/teclado.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

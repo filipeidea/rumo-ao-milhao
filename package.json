@@ -1,0 +1,15 @@
+{
+  "name": "rumo-ao-milhao",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Jogo de perguntas e respostas estilo programa de auditório, feito para jogar na TV.",
+  "scripts": {
+    "start": "python3 -m http.server 8080 --directory src",
+    "build": "python3 scripts/build.py",
+    "test": "node testes/teste-logica.js",
+    "test:e2e": "python3 testes/teste-navegador.py"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

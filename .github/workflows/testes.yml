@@ -1,0 +1,33 @@
+name: Testes
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  logica:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm test
+
+  navegador:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install playwright && python -m playwright install --with-deps chromium
+      - run: npm run test:e2e
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/build.py
+      - name: Confere se dist/ está atualizado
+        run: git diff --exit-code dist/rumo-ao-milhao.html || (echo "Rode 'npm run build' e faça commit de dist/." && exit 1)

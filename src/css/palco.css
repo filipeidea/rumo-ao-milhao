@@ -1,0 +1,85 @@
+/* Palco: raios girando, canhões de luz, anéis concêntricos e piso refletivo. */
+.palco { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 42%, #133a9e 0%, #0a1f63 38%, var(--abismo) 66%, var(--noite) 100%);
+  transition: filter 1.2s;
+}
+.palco-raios {
+  position: absolute; left: 50%; top: 42%;
+  width: 260vmax; height: 260vmax;
+  margin: -130vmax 0 0 -130vmax;
+  background: repeating-conic-gradient(from 0deg, rgba(110, 160, 255, .09) 0deg 6deg, rgba(110, 160, 255, 0) 6deg 15deg);
+  -webkit-mask: radial-gradient(circle, #000 0%, rgba(0, 0, 0, .7) 18%, transparent 42%);
+          mask: radial-gradient(circle, #000 0%, rgba(0, 0, 0, .7) 18%, transparent 42%);
+  animation: girar 120s linear infinite;
+}
+.feixes i {
+  position: absolute; top: -8%;
+  width: 22vw; height: 125%;
+  background: linear-gradient(180deg, rgba(150, 195, 255, .30) 0%, rgba(110, 160, 255, .10) 45%, transparent 80%);
+  clip-path: polygon(46% 0, 54% 0, 100% 100%, 0 100%);
+  transform-origin: 50% 0;
+  filter: blur(4px);
+  mix-blend-mode: screen;
+  animation: balanca 11s ease-in-out infinite alternate;
+}
+.feixes i:nth-child(1) { left: -2%; --a: 22deg; animation-duration: 13s; }
+.feixes i:nth-child(2) { left: 14%; --a: 12deg; animation-delay: -4s; }
+.feixes i:nth-child(3) { left: 32%; --a: 6deg; animation-delay: -7s; animation-duration: 9s;
+  background: linear-gradient(180deg, rgba(255, 215, 120, .26), rgba(255, 200, 80, .06) 50%, transparent 80%); }
+.feixes i:nth-child(4) { right: 32%; --a: -6deg; animation-delay: -2s; animation-duration: 10s;
+  background: linear-gradient(180deg, rgba(255, 215, 120, .26), rgba(255, 200, 80, .06) 50%, transparent 80%); }
+.feixes i:nth-child(5) { right: 14%; --a: -12deg; animation-delay: -9s; }
+.feixes i:nth-child(6) { right: -2%; --a: -22deg; animation-duration: 14s; }
+
+.aneis { position: absolute; left: 50%; top: 42%; width: 0; height: 0; }
+.aneis i {
+  position: absolute; border-radius: 50%;
+  border: 2px solid rgba(110, 170, 255, .16);
+  left: 50%; top: 50%; transform: translate(-50%, -50%);
+}
+.aneis i:nth-child(1) { width: 54vmin; height: 54vmin; border-style: dashed; border-color: rgba(255, 201, 60, .22); animation: girar-c 60s linear infinite; }
+.aneis i:nth-child(2) { width: 78vmin; height: 78vmin; animation: pulso-anel 6s ease-in-out infinite; }
+.aneis i:nth-child(3) { width: 108vmin; height: 108vmin; border-width: 1px; border-style: dotted; animation: girar-c 90s linear infinite reverse; }
+.aneis i:nth-child(4) { width: 144vmin; height: 144vmin; border-width: 1px; opacity: .6; }
+
+.piso {
+  position: absolute; left: -20%; right: -20%; bottom: -6%; height: 42%;
+  background:
+    repeating-linear-gradient(90deg, rgba(110, 160, 255, .16) 0 2px, transparent 2px 6.5%),
+    repeating-linear-gradient(0deg, rgba(110, 160, 255, .14) 0 2px, transparent 2px 13%),
+    radial-gradient(ellipse 50% 70% at 50% 0%, rgba(80, 140, 255, .35), transparent 70%);
+  transform: perspective(60vh) rotateX(62deg);
+  transform-origin: 50% 0;
+  -webkit-mask: linear-gradient(180deg, transparent 0%, #000 25%, #000 100%);
+          mask: linear-gradient(180deg, transparent 0%, #000 25%, #000 100%);
+  opacity: .75;
+}
+#fx-fundo { position: absolute; inset: 0; width: 100%; height: 100%; }
+.vinheta { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 75% at 50% 45%, transparent 55%, rgba(0, 0, 8, .82) 100%); transition: background 1s; }
+
+.app[data-tela="menu"] .aneis { left: 37%; }
+@media (max-aspect-ratio: 5/4) { .app[data-tela="menu"] .aneis { left: 50%; top: 22%; } }
+
+/* No jogo, o palco recua para a pergunta ser o destaque */
+.app[data-tela="jogo"] .palco-raios { opacity: .55; }
+.app[data-tela="jogo"] .aneis { top: 38%; opacity: .55; }
+.app[data-tela="jogo"] .feixes i { opacity: .7; }
+
+/* Tensão: perguntas valiosas esquentam a luz */
+.app[data-tensao="1"] .palco { filter: saturate(1.15); }
+.app[data-tensao="2"] .palco { filter: hue-rotate(-14deg) saturate(1.25) brightness(.92); }
+.app[data-tensao="2"] .vinheta { background: radial-gradient(ellipse 75% 70% at 50% 45%, transparent 50%, rgba(10, 0, 4, .9) 100%); }
+.app[data-tensao="3"] .palco { filter: sepia(.35) hue-rotate(-20deg) saturate(1.5) brightness(.85); }
+.app[data-tensao="3"] .vinheta { animation: vinheta-pulso 1.6s ease-in-out infinite; }
+.app[data-tensao="3"] .feixes i { animation-duration: 5s; }
+
+/* Suspense da resposta travada: luz baixa */
+.app.suspense .palco { filter: brightness(.6) saturate(1.2); }
+.app.suspense .feixes i { animation-play-state: paused; opacity: .35; }
+
+@keyframes girar { to { transform: rotate(360deg); } }
+@keyframes girar-c { to { transform: translate(-50%, -50%) rotate(360deg); } }
+@keyframes balanca { from { transform: rotate(var(--a)); } to { transform: rotate(calc(var(--a) * -1)); } }
+@keyframes pulso-anel { 0%, 100% { opacity: .5; transform: translate(-50%, -50%) scale(1); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.03); } }
+@keyframes vinheta-pulso { 50% { background: radial-gradient(ellipse 70% 65% at 50% 45%, transparent 45%, rgba(40, 6, 0, .92) 100%); } }

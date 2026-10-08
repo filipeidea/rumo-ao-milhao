@@ -1,0 +1,18 @@
+# sistema
+.DS_Store
+Thumbs.db
+
+# editores
+.vscode/
+.idea/
+
+# dependências e caches
+node_modules/
+__pycache__/
+*.pyc
+
+# capturas geradas pelo teste de navegador
+testes/capturas/
+
+# versão para publicação como página (gerada pelo build)
+dist/artifact.html
