@@ -48,7 +48,7 @@ Edite `src/js/data/perguntas.js` e acrescente uma linha:
 - Use `ordenar: true` quando as alternativas forem números, para aparecerem em ordem crescente.
 - Depois de editar, rode `npm run build` para atualizar o arquivo único em `dist/`.
 
-O banco inicial tem 168 perguntas em 14 categorias. O jogo não repete perguntas na mesma partida e evita as já vistas em partidas anteriores (dá para zerar esse histórico em Configurações → Banco de perguntas).
+O banco tem 376 perguntas em 14 categorias. O jogo não repete perguntas na mesma partida e evita as já vistas em partidas anteriores (dá para zerar esse histórico em Configurações → Banco de perguntas).
 
 ## Estrutura
 
