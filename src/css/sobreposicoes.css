@@ -20,7 +20,7 @@
   animation: entra-zoom .45s var(--ease-tv) both;
 }
 .modal::before { content: ""; position: absolute; left: 10%; right: 10%; top: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--ouro), transparent); }
-.modal-titulo { margin: 0 0 calc(var(--u) * 1); font-family: var(--f-marca); font-weight: 400; font-size: calc(var(--u) * 2.8); color: var(--ouro); text-wrap: balance; }
+.modal-titulo { margin: 0 0 calc(var(--u) * 1); font-family: var(--f-marca); font-weight: 900; font-size: calc(var(--u) * 2.8); color: var(--ouro); text-wrap: balance; }
 .modal-texto { margin: 0 0 calc(var(--u) * 2); font-size: calc(var(--u) * 2); line-height: 1.4; }
 .modal-texto b { color: var(--ouro); }
 
@@ -44,7 +44,7 @@
 }
 .barra.lider .barra-col { background: linear-gradient(180deg, var(--ouro-claro), var(--ouro) 50%, var(--ouro-escuro)); box-shadow: 0 0 calc(var(--u) * 1.6) rgba(255, 201, 60, .6); }
 .barra.lider .barra-pct { color: var(--ouro); }
-.barra-letra { position: absolute; bottom: calc(var(--u) * -3.4); font-family: var(--f-marca); font-size: calc(var(--u) * 2); color: var(--ouro); }
+.barra-letra { position: absolute; bottom: calc(var(--u) * -3.4); font-family: var(--f-marca); font-weight: 900; font-size: calc(var(--u) * 2); color: var(--ouro); }
 .barra.fora { opacity: .3; }
 .modal-plateia .linha-botoes { margin-top: calc(var(--u) * 3.4); }
 
@@ -59,7 +59,7 @@
 }
 .vez-rotulo { font-weight: 800; font-stretch: 125%; letter-spacing: .5em; font-size: calc(var(--u) * 2.6); color: var(--branco); animation: entra-cima .6s var(--ease-tv) both; }
 .vez-nome {
-  font-family: var(--f-marca); font-size: calc(var(--u) * 10); line-height: 1.05;
+  font-family: var(--f-marca); font-weight: 900; font-size: calc(var(--u) * 10); line-height: 1.05;
   max-width: 90vw; overflow-wrap: anywhere;
   background: linear-gradient(180deg, #fffbe6, var(--ouro) 50%, var(--ouro-escuro) 54%, #ffe796);
   -webkit-background-clip: text; background-clip: text; color: transparent;
@@ -73,7 +73,7 @@
 .marco-conteudo { text-align: center; }
 .marco-rotulo { font-weight: 800; font-stretch: 125%; letter-spacing: .45em; font-size: calc(var(--u) * 2.6); color: var(--branco); animation: entra-cima .6s var(--ease-tv) both; }
 .marco-valor {
-  font-family: var(--f-marca); font-size: calc(var(--u) * 11); line-height: 1.05;
+  font-family: var(--f-marca); font-weight: 900; font-size: calc(var(--u) * 11); line-height: 1.05;
   background: linear-gradient(180deg, #fffbe6, var(--ouro) 50%, var(--ouro-escuro) 54%, #ffe796);
   -webkit-background-clip: text; background-clip: text; color: transparent;
   filter: drop-shadow(0 calc(var(--u) * .35) 0 #5a3204) drop-shadow(0 0 calc(var(--u) * 3) rgba(255, 190, 50, .7));
@@ -82,7 +82,7 @@
 
 /* ---------- pausa ---------- */
 .pausa-conteudo { text-align: center; display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * 1.6); }
-.pausa-titulo { font-family: var(--f-marca); font-size: calc(var(--u) * 8); color: var(--ouro); text-shadow: 0 calc(var(--u) * .35) 0 #5a3204; animation: respira 2.4s ease-in-out infinite; }
+.pausa-titulo { font-family: var(--f-marca); font-weight: 900; font-size: calc(var(--u) * 8); color: var(--ouro); text-shadow: 0 calc(var(--u) * .35) 0 #5a3204; animation: respira 2.4s ease-in-out infinite; }
 .pausa-conteudo p { margin: 0; font-size: calc(var(--u) * 2); color: var(--suave); }
 
 /* ---------- vitória ---------- */
@@ -90,7 +90,7 @@
 .vitoria-conteudo { text-align: center; display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * 1.4); }
 .vitoria-rotulo { font-weight: 800; font-stretch: 125%; letter-spacing: .4em; font-size: calc(var(--u) * 2.6); animation: entra-cima .7s var(--ease-tv) both; }
 .vitoria-valor {
-  font-family: var(--f-marca); font-size: calc(var(--u) * 12.5); line-height: 1;
+  font-family: var(--f-marca); font-weight: 900; font-size: calc(var(--u) * 12.5); line-height: 1;
   background: linear-gradient(180deg, #fffbe6, var(--ouro) 50%, var(--ouro-escuro) 54%, #ffe796);
   -webkit-background-clip: text; background-clip: text; color: transparent;
   filter: drop-shadow(0 calc(var(--u) * .4) 0 #5a3204) drop-shadow(0 0 calc(var(--u) * 4) rgba(255, 200, 60, .9));
@@ -104,7 +104,7 @@
   position: absolute; left: 50%; top: 40%; z-index: 30;
   transform: translate(-50%, -50%);
   pointer-events: none;
-  font-family: var(--f-marca); font-size: calc(var(--u) * 6.6); line-height: 1; white-space: nowrap;
+  font-family: var(--f-marca); font-weight: 900; font-size: calc(var(--u) * 6.6); line-height: 1; white-space: nowrap;
   opacity: 0;
 }
 .carimbo.certo { color: #eafff3; text-shadow: 0 calc(var(--u) * .35) 0 var(--verde-escuro), 0 0 calc(var(--u) * 3) rgba(30, 255, 140, .95); animation: carimbo 1.5s var(--ease-tv) both; }

@@ -11,9 +11,15 @@
 
   /* menu */
   .menu-grid { grid-template-columns: 1fr; height: auto; gap: calc(var(--u) * 4); padding-block: calc(var(--u) * 3); }
-  .logo-milhao { font-size: calc(var(--u) * 15); }
-  .logo-rumo { font-size: calc(var(--u) * 4); }
-  .logo-faixa { font-size: calc(var(--u) * 1.7); letter-spacing: .16em; }
+  .logo-milhao { font-size: min(calc(var(--u) * 10), 17vw); }
+  .logo-rumo { font-size: min(calc(var(--u) * 5.4), 9vw); }
+  .placa-rumo { padding-inline: calc(var(--u) * 4); }
+  .placa-milhao { padding-inline: min(calc(var(--u) * 3.4), 5vw); --c: min(calc(var(--u) * 2.6), 4.5vw); }
+  .marca-monte { width: calc(var(--u) * 11); height: calc(var(--u) * 6.7); }
+  .marca-por { font-size: calc(var(--u) * 1.9); letter-spacing: .22em; }
+  .marca-por::before, .marca-por::after { width: calc(var(--u) * 3); }
+  .logo-lema { font-size: calc(var(--u) * 1.75); letter-spacing: .16em; }
+  .logo-disco { width: 110vw; }
   .btn-xl { font-size: calc(var(--u) * 3.4); }
   .menu-opcoes { flex-direction: column; width: min(100%, calc(var(--u) * 50)); }
   .menu-opcoes .btn { width: 100%; }

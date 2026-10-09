@@ -1,5 +1,7 @@
 # Rumo ao Milhão
 
+**por Revival Hill** · Conhecimento • Fé • Comunhão
+
 Jogo de perguntas e respostas no estilo dos grandes programas de auditório da TV, feito para rodar no navegador de um computador ligado à televisão.
 
 ## Como abrir

@@ -59,12 +59,52 @@
 .vinheta { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 75% at 50% 45%, transparent 55%, rgba(0, 0, 8, .82) 100%); transition: background 1s; }
 
 .app[data-tela="menu"] .aneis { left: 37%; }
-@media (max-aspect-ratio: 5/4) { .app[data-tela="menu"] .aneis { left: 50%; top: 22%; } }
+@media (max-aspect-ratio: 5/4) { .app[data-tela="menu"] .aneis { left: 50%; top: 22%; } .paineis { display: none; } .podio { left: 50% !important; width: 120vw; opacity: .5; } .lampadas i { width: 6vw; margin-left: -3vw; } }
+
+/* lâmpadas no alto, de onde saem os canhões de luz */
+.lampadas i {
+  position: absolute; top: -1.2vh; width: 2.4vw; aspect-ratio: 1; margin-left: -1.2vw; border-radius: 50%;
+  background: radial-gradient(circle, #fff 0%, #e6f0ff 18%, rgba(120, 170, 255, .7) 38%, transparent 70%);
+  animation: pisca 5s ease-in-out infinite;
+}
+.lampadas i:nth-child(1) { left: 9vw; } .lampadas i:nth-child(2) { left: 25vw; animation-delay: -1s; }
+.lampadas i:nth-child(3) { left: 43vw; animation-delay: -2s; } .lampadas i:nth-child(4) { left: 57vw; animation-delay: -3s; }
+.lampadas i:nth-child(5) { left: 75vw; animation-delay: -4s; } .lampadas i:nth-child(6) { left: 91vw; animation-delay: -2.5s; }
+
+/* torres laterais com faixas de luz dourada */
+.paineis i {
+  position: absolute; bottom: 16%; width: 8.5vw; height: 56%;
+  background:
+    linear-gradient(90deg, rgba(90, 160, 255, .9) 0 3%, transparent 3% 97%, rgba(90, 160, 255, .9) 97%),
+    linear-gradient(180deg, #0c2270 0%, #071649 60%, #040d33 100%);
+  box-shadow: 0 0 2.5vw rgba(40, 100, 255, .35);
+}
+.paineis i::before, .paineis i::after {
+  content: ""; position: absolute; left: 22%; right: 22%; top: 5%; bottom: 5%;
+  background: repeating-linear-gradient(180deg, transparent 0 5.5%, #ffd46a 5.5% 6.6%, transparent 6.6% 10%);
+}
+.paineis i::after { filter: blur(6px); opacity: .9; }
+.paineis i:nth-child(1) { left: 1.5vw; transform: perspective(70vw) rotateY(32deg); transform-origin: left center; }
+.paineis i:nth-child(2) { right: 1.5vw; transform: perspective(70vw) rotateY(-32deg); transform-origin: right center; }
+
+/* pódio circular com aro dourado */
+.podio {
+  position: absolute; left: 37%; bottom: -7%; width: 56vw; aspect-ratio: 5.6 / 1; transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 40%, rgba(50, 110, 240, .55) 0%, rgba(10, 32, 110, .92) 52%, rgba(3, 10, 40, .96) 72%);
+  box-shadow: 0 0 0 .28vw rgba(255, 205, 100, .9), 0 0 2.6vw rgba(255, 190, 60, .55), 0 2vw 4vw rgba(0, 0, 20, .8), inset 0 0 3vw rgba(80, 150, 255, .45);
+}
+.podio::before, .podio::after { content: ""; position: absolute; border-radius: 50%; }
+.podio::before { inset: 13% 11%; border: 2px solid rgba(110, 185, 255, .8); box-shadow: 0 0 1.6vw rgba(80, 150, 255, .8), inset 0 0 1.6vw rgba(80, 150, 255, .5); }
+.podio::after { inset: 32% 30%; border: 1px solid rgba(255, 205, 100, .5); }
+@keyframes pisca { 0%, 100% { opacity: 1; } 50% { opacity: .7; } }
 
 /* No jogo, o palco recua para a pergunta ser o destaque */
 .app[data-tela="jogo"] .palco-raios { opacity: .55; }
 .app[data-tela="jogo"] .aneis { top: 38%; opacity: .55; }
 .app[data-tela="jogo"] .feixes i { opacity: .7; }
+.app[data-tela="jogo"] .paineis, .app[data-tela="config"] .paineis, .app[data-tela="grupo"] .paineis, .app[data-tela="ajuda"] .paineis { opacity: .45; }
+.app:not([data-tela="menu"]) .podio { left: 50%; opacity: .18; }
 
 /* Tensão: perguntas valiosas esquentam a luz */
 .app[data-tensao="1"] .palco { filter: saturate(1.15); }

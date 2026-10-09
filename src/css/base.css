@@ -20,7 +20,8 @@
   --vidro: rgba(24, 52, 140, .38);
   --linha: rgba(120, 160, 255, .35);
   /* tipo */
-  --f-marca: "Bungee", "Impact", "Arial Black", sans-serif;
+  --f-marca: "Montserrat", "Arial Black", "Helvetica Neue", sans-serif;
+  --f-rotulo: "Montserrat", "Helvetica Neue", Arial, sans-serif;
   --f-texto: "Saira", "Arial Narrow", "Roboto Condensed", "Helvetica Neue", sans-serif;
   /* escala */
   --u: min(1vw, 1.7778vh);
@@ -92,9 +93,8 @@ kbd {
   position: relative;
   border: 0;
   padding: calc(var(--u) * 1.05) calc(var(--u) * 3);
-  font-family: var(--f-texto);
+  font-family: var(--f-rotulo);
   font-weight: 800;
-  font-stretch: 112%;
   font-size: calc(var(--u) * 1.6);
   letter-spacing: .08em;
   line-height: 1.1;

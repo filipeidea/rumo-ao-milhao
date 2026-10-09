@@ -6,7 +6,7 @@
 <title>Rumo ao Milhão</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Saira:wdth,wght@75..125,400..900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Saira:wdth,wght@75..125,400..900&display=swap">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/palco.css">
 <link rel="stylesheet" href="css/telas.css">
@@ -15,14 +15,32 @@
 <link rel="stylesheet" href="css/responsivo.css">
 </head>
 <body>
+<!-- Símbolo Revival Hill: monte com cruz (reutilizado com <use>) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="g-ouro" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff3c4"/><stop offset=".45" stop-color="#ffc93c"/><stop offset="1" stop-color="#b8780f"/>
+    </linearGradient>
+  </defs>
+  <symbol id="monte" viewBox="0 0 120 74">
+    <g fill="none" stroke="url(#g-ouro)" stroke-linejoin="miter" stroke-linecap="square">
+      <path d="M4 70 L37 36 L46 45 L60 24 L76 42 L84 34 L116 70" stroke-width="5.5"/>
+      <path d="M50 46 L60 33 L69 44 M31 56 L37 50 L42 55" stroke-width="3"/>
+      <path d="M60 2 V20 M53.5 8.5 H66.5" stroke-width="4.5"/>
+    </g>
+  </symbol>
+</svg>
 <div id="app" class="app" data-tela="menu" data-tensao="0">
 
   <!-- ===== Palco (fundo animado, comum a todas as telas) ===== -->
   <div class="palco" aria-hidden="true">
     <div class="palco-raios"></div>
     <div class="feixes"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="lampadas"><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <div class="aneis"><i></i><i></i><i></i><i></i></div>
     <div class="piso"></div>
+    <div class="paineis"><i></i><i></i></div>
+    <div class="podio"></div>
     <canvas id="fx-fundo"></canvas>
     <div class="vinheta"></div>
   </div>
@@ -31,11 +49,15 @@
   <section id="tela-menu" class="tela ativa" aria-label="Menu principal">
     <div class="menu-grid">
       <div class="menu-centro">
-        <h1 class="logo" aria-label="Rumo ao Milhão">
-          <span class="logo-disco" aria-hidden="true"><i></i><i></i><i></i></span>
-          <span class="logo-rumo">RUMO AO</span>
-          <span class="logo-milhao" data-texto="MILHÃO">MILHÃO</span>
-          <span class="logo-faixa">O grande jogo de perguntas da TV</span>
+        <h1 class="logo" aria-label="Rumo ao Milhão, por Revival Hill">
+          <span class="logo-disco" aria-hidden="true"><i></i><i></i></span>
+          <span class="marca-rh" aria-hidden="true">
+            <svg class="marca-monte"><use href="#monte"/></svg>
+            <span class="marca-por"><i>por:</i> REVIVAL HILL</span>
+          </span>
+          <span class="placa-brilho placa-brilho-rumo" aria-hidden="true"><span class="placa placa-rumo"><span class="logo-rumo">RUMO AO</span></span></span>
+          <span class="placa-brilho placa-brilho-milhao" aria-hidden="true"><span class="placa placa-milhao"><span class="logo-milhao" data-texto="MILHÃO">MILHÃO</span></span></span>
+          <span class="logo-lema">Conhecimento <b>•</b> Fé <b>•</b> Comunhão</span>
         </h1>
         <button id="btn-comecar" class="btn btn-ouro btn-xl" type="button">COMEÇAR</button>
         <div class="menu-opcoes">
@@ -156,7 +178,7 @@
     <div class="jogo-grid">
       <div class="jogo-principal">
         <header class="hud">
-          <div class="hud-marca" aria-hidden="true">RUMO AO <b>MILHÃO</b></div>
+          <div class="hud-marca" aria-hidden="true"><svg class="hud-monte"><use href="#monte"/></svg><span class="hud-nome">RUMO AO <b>MILHÃO</b><small>por Revival Hill</small></span></div>
           <div class="hud-vez" id="hud-vez" hidden></div>
           <div class="hud-valores">
             <div class="hv hv-errar"><span>ERRAR</span><b id="v-errar">R$ 0</b></div>

@@ -17,8 +17,11 @@
 
 /* ---------- HUD ---------- */
 .hud { display: flex; align-items: center; gap: calc(var(--u) * 1.6); min-width: 0; }
-.hud-marca { font-family: var(--f-marca); font-size: calc(var(--u) * 1.5); color: var(--branco); letter-spacing: .02em; white-space: nowrap; opacity: .9; }
-.hud-marca b { font-weight: 400; color: var(--ouro); }
+.hud-marca { display: flex; align-items: center; gap: calc(var(--u) * .8); white-space: nowrap; }
+.hud-monte { width: calc(var(--u) * 3.6); height: calc(var(--u) * 2.2); flex: none; filter: drop-shadow(0 0 calc(var(--u) * .4) rgba(255, 190, 60, .6)); }
+.hud-nome { display: flex; flex-direction: column; font-family: var(--f-marca); font-weight: 900; font-size: calc(var(--u) * 1.5); line-height: 1.05; color: var(--branco); }
+.hud-nome b { color: var(--ouro); font-weight: 900; }
+.hud-nome small { font-family: var(--f-rotulo); font-weight: 600; font-size: .58em; letter-spacing: .22em; text-transform: uppercase; color: var(--suave); margin-top: .25em; }
 .hud-vez {
   padding: calc(var(--u) * .4) calc(var(--u) * 1.4);
   border-radius: 999px;
@@ -135,7 +138,7 @@
   flex: none; display: grid; place-items: center;
   width: calc(var(--u) * 4); aspect-ratio: 1; border-radius: 50%;
   background: var(--letra-fundo); color: var(--letra-cor);
-  font-family: var(--f-marca); font-size: calc(var(--u) * 2);
+  font-family: var(--f-marca); font-weight: 900; font-size: calc(var(--u) * 2);
   box-shadow: 0 0 calc(var(--u) * .8) rgba(255, 201, 60, .5);
 }
 .alt-texto { flex: 1; min-width: 0; font-weight: 700; font-size: calc(var(--u) * 2.25); line-height: 1.15; text-wrap: balance; }
